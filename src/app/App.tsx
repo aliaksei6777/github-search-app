@@ -4,8 +4,7 @@ import {Header} from "../components/Header/Header";
 import {getRepoDataTC, getUserDataTC} from "./profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateType} from "./store";
-import { useHistory } from 'react-router-dom';
-import styled from "styled-components";
+import {useHistory} from 'react-router-dom';
 
 function App() {
     const [value, setValue] = useState("")
@@ -15,8 +14,8 @@ function App() {
     const dispatch = useDispatch()
     const fetchData = () => {
         const trimValue = value.trim()
-        if (trimValue){
-            dispatch(getRepoDataTC(value,1))
+        if (trimValue) {
+            dispatch(getRepoDataTC(value, 1))
             dispatch(getUserDataTC(value))
             setValue('')
         }
