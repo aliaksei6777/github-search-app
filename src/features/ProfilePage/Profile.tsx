@@ -13,7 +13,6 @@ export const Profile = () => {
     const {avatar_url, html_url, login, name, followers, following, public_repos}
         = useSelector<RootStateType, UserType>(state => state.profile.user)
     const repo = useSelector<RootStateType, RepoType[]>(state => state.profile.repos)
-    console.log(repo)
     const currentPage = useSelector<RootStateType, number>(state => state.profile.currentPage)
     const dispatch = useDispatch()
     const currentPageData = repo.map((el, i) => <RepoItem key={i + el.name}>
@@ -95,6 +94,7 @@ const ProfileContainer = styled.div`
   @media (max-width: 1129px) {
     flex-direction: column;
     align-items: center;
+    margin-top: 50px;
   };
 `
 const InfoBlockWrapper = styled.div`
@@ -170,6 +170,9 @@ const RepoBlock = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  @media (max-width: 1129px) {
+    margin-top: 50px;
+  };
   h3 {
     font-family: Inter;
     font-style: normal;
