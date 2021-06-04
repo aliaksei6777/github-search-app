@@ -3,8 +3,10 @@ import {NavLink} from "react-router-dom"
 import styled from "styled-components";
 import gitIcon from "../../assets/image/gitIcon.png"
 import searchIcon from "../../assets/image/searchIcon.png"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAppStatus} from "../../app/app-reducer";
+import {RootStateType} from "../../app/store";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 
 type PropsType = {
@@ -14,10 +16,12 @@ type PropsType = {
 }
 export const Header: React.FC<PropsType> = ({callback,onChangeInput,inputValue}) => {
     const dispatch = useDispatch()
+    const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
+
     const setStatus = () => {
         dispatch(setAppStatus('idle'))
     }
-    return (
+    return <>
         <HeaderContainer>
             <Nav>
                 <NavLink to={'/'} onClick={setStatus}>
@@ -35,7 +39,10 @@ export const Header: React.FC<PropsType> = ({callback,onChangeInput,inputValue})
                 </InputStyled>
             </Nav>
         </HeaderContainer>
-    )
+        <div style={{height:"6px"}}>
+            {appStatus === 'loading' ? <ProgressBar/> : null}
+        </div>
+    </>
 }
 
 
