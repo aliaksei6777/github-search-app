@@ -38,10 +38,10 @@ export const Profile = () => {
                 <InfoBlockWrapper>
                     <InfoBlock>
                         <Avatar>
-                            <img style={{width: '280px', height: '280px', borderRadius: '100%'}}
+                            <img style={{width: '200px', height: '200px', borderRadius: '100%'}}
                                  src={avatar_url} alt={defaultAvatar}/>
                         </Avatar>
-                        <Desription>
+                        <Description>
                             <Name>
                                 <h2>{name}</h2>
                             </Name>
@@ -63,7 +63,7 @@ export const Profile = () => {
                                     <div>{followingTrim} following</div>
                                 </FollowItem>
                             </FollowBlock>
-                        </Desription>
+                        </Description>
                     </InfoBlock>
                 </InfoBlockWrapper>
                 {repo.length === 0
@@ -97,7 +97,6 @@ const ProfileContainer = styled.div`
   @media (max-width: 1129px) {
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
   };
 `
 const InfoBlockWrapper = styled.div`
@@ -107,7 +106,6 @@ const InfoBlockWrapper = styled.div`
 `
 const InfoBlock = styled.div`
   height: 431.98px;
-  width: 400px;
   margin-left: 25px;
 `
 const Avatar = styled.div`
@@ -115,9 +113,10 @@ const Avatar = styled.div`
   justify-content: center;
   align-items: center;
   height: 250px;
-  padding: 50px;
+  padding: 50px 50px 0px 50px 
+  
 `
-const Desription = styled.div`
+const Description = styled.div`
   margin-left: 10px;
   margin-right: 20px;
 `
@@ -139,7 +138,7 @@ const LoginName = styled.div`
   color: #0064EB;
 `
 const FollowBlock = styled.div`
-  margin: 30px;
+  //margin: 30px;
   display: flex;
   justify-content: space-between;
   font-family: Inter, serif;
@@ -153,7 +152,7 @@ const FollowItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  font-family: Inter;
+  font-family: Inter, serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -177,7 +176,7 @@ const RepoBlock = styled.div`
     margin-top: 50px;
   };
   h3 {
-    font-family: Inter;
+    font-family: Inter, serif;
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
@@ -197,6 +196,7 @@ const RepoItem = styled.div`
   font-size: 16px;
   line-height: 19px;
   color: #000000;
+  
 `
 
 type SearchIconStyledProps = { image: string }
@@ -222,7 +222,7 @@ const EmptyWrapper = styled.div`
   };
 `
 const TextBlock = styled.div`
-  font-family: Inter;
+  font-family: Inter, serif;
   font-style: normal;
   font-weight: normal;
   font-size: 22px;

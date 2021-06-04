@@ -24,6 +24,7 @@ function App() {
     if (appStatus === 'succeeded') {
         history.push(PATH.PROFILE);
     }
+
     if (appStatus === 'idle') {
         history.push(PATH.MAIN);
     }

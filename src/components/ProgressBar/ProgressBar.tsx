@@ -1,5 +1,4 @@
 import React from "react";
-import s from "./ProgressBar.module.css";
 import styled, {keyframes} from "styled-components";
 
 type ProgressBarTextPropsType = {};
