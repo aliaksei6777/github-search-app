@@ -10,21 +10,18 @@ export const Main = () => {
     const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
     return (
         <MainContainer>
-            {/*<InfoBlock>*/}
             {appStatus === "idle" &&
-            <Wrapper>
-                <SearchIcon image={searchIcon}></SearchIcon>
-                <TextBlock>Start with searching<br/> a GitHub user</TextBlock>
-            </Wrapper>
+                <Wrapper>
+                    <SearchIcon image={searchIcon}></SearchIcon>
+                    <TextBlock>Start with searching<br/> a GitHub user</TextBlock>
+                </Wrapper>
             }
             {appStatus === "failed" &&
-            <Wrapper>
-                <SearchIcon image={notfound}></SearchIcon>
-                <TextBlock>User not found</TextBlock>
-            </Wrapper>
+                <Wrapper>
+                    <SearchIcon image={notfound}></SearchIcon>
+                    <TextBlock>User not found</TextBlock>
+                </Wrapper>
             }
-
-            {/*</InfoBlock>*/}
         </MainContainer>
     )
 }
@@ -40,18 +37,6 @@ const MainContainer = styled.div`
   height: 100vh;
 `
 
-const InfoBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 62px;
-  font-family: Inter, serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 22px;
-  text-align: center;
-  color: #808080;
-`
 export type SearchIconStyledProps = { image: string }
 export const SearchIcon = styled.div<SearchIconStyledProps>`
   background-image: url(${props => props.image});
@@ -62,7 +47,7 @@ export const SearchIcon = styled.div<SearchIconStyledProps>`
 `
 
 export const Wrapper = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -10,45 +10,48 @@ import {Paginator} from "../../components/Paginator/Paginator";
 import emptyIcon from "../../assets/image/empty.png"
 
 export const Profile = () => {
+
+    const dispatch = useDispatch()
+
     const {avatar_url, html_url, login, name, followers, following, public_repos}
         = useSelector<RootStateType, UserType>(state => state.profile.user)
     const repo = useSelector<RootStateType, RepoType[]>(state => state.profile.repos)
     const currentPage = useSelector<RootStateType, number>(state => state.profile.currentPage)
-    const dispatch = useDispatch()
-    const currentPageData = repo.map((el, i) => <RepoItem key={i + el.name}>
+
+    const currentPageData = repo.map((el, i) =>
+        <RepoItem key={i + el.name}>
             <a style={{
                 textDecoration: "none", color: '#0064EB', fontFamily: 'Inter', fontStyle: 'normal',
-                fontWeight: 500, fontSize: '24px', lineHeight: '29px'
-            }}
-               href={el.html_url} target="_blank" rel="noreferrer">
-                <div>{el.name}</div>
-            </a>
-            {el.description}
+                fontWeight: 500, fontSize: '24px', lineHeight: '29px'}}
+               href={el.html_url} target="_blank" rel="noreferrer"><div>{el.name}</div>
+            </a>{el.description}
         </RepoItem>)
+
     const followersTrim = followers >= 1000 ? (followers / 1000).toFixed(1) + 'k' : followers
     const followingTrim = following >= 1000 ? (following / 1000).toFixed(1) + 'k' : following
-    const onPageChanged = (pageNumber: number) => {
-        dispatch((getRepoDataTC(login, pageNumber)))
-    }
+
+    const onPageChanged = (pageNumber: number) => {dispatch((getRepoDataTC(login, pageNumber)))}
+
     return (
         <MainBlock>
             <ProfileContainer>
                 <InfoBlockWrapper>
                     <InfoBlock>
-                        <AvaStyled>
+                        <Avatar>
                             <img style={{width: '280px', height: '280px', borderRadius: '100%'}}
                                  src={avatar_url} alt={defaultAvatar}/>
-                        </AvaStyled>
+                        </Avatar>
                         <Desription>
                             <Name>
                                 <h2>{name}</h2>
                             </Name>
                             <LoginName>
-                                <a href={html_url} target="_blank"
-                                   style={{
-                                       textDecoration: "none", color: '#0064EB', fontFamily: 'Inter',
+                                <a href={html_url}
+                                   target="_blank"
+                                   style={{textDecoration: "none", color: '#0064EB', fontFamily: 'Inter',
                                        fontStyle: 'normal', fontWeight: 'normal', fontSize: '18px', lineHeight: '22px'
-                                   }}>{login}</a>
+                                            }}>{login}
+                                </a>
                             </LoginName>
                             <FollowBlock>
                                 <FollowItem>
@@ -58,24 +61,24 @@ export const Profile = () => {
                                 <FollowItem>
                                     <FollowIcon image={followingIcon}></FollowIcon>
                                     <div>{followingTrim} following</div>
-
                                 </FollowItem>
                             </FollowBlock>
                         </Desription>
                     </InfoBlock>
                 </InfoBlockWrapper>
-                {repo.length === 0 ?
-                <Wrapper>
-                    <SearchIcon image={emptyIcon}></SearchIcon>
-                    <TextBlock>Repository list is empty</TextBlock>
-                </Wrapper> :
-                <RepoBlock>
-                        <div><h3>Repositories ({public_repos})</h3></div>
+                {repo.length === 0
+                    ?   <EmptyWrapper>
+                            <EmptyIcon image={emptyIcon}></EmptyIcon>
+                            <TextBlock>Repository list is empty</TextBlock>
+                        </EmptyWrapper>
+                    :
+                        <RepoBlock>
+                            <div><h3>Repositories ({public_repos})</h3></div>
 
-                        {currentPageData}
-                        <Paginator totalItemsCount={public_repos}
-                               pageSize={4} currentPage={currentPage} portionSize={5} onPageChanged={onPageChanged}/>
-                </RepoBlock>}
+                            {currentPageData}
+                            <Paginator totalItemsCount={public_repos} pageSize={4} currentPage={currentPage}
+                                       portionSize={5} onPageChanged={onPageChanged}/>
+                        </RepoBlock>}
             </ProfileContainer>
         </MainBlock>
     )
@@ -107,7 +110,7 @@ const InfoBlock = styled.div`
   width: 400px;
   margin-left: 25px;
 `
-const AvaStyled = styled.div`
+const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -197,15 +200,15 @@ const RepoItem = styled.div`
 `
 
 type SearchIconStyledProps = { image: string }
-const SearchIcon = styled.div<SearchIconStyledProps>`
+const EmptyIcon = styled.div<SearchIconStyledProps>`
   background-image: url(${props => props.image});
   background-size: cover;
-  width: 120px;
-  height: 97px;
+  width: 86px;
+  height: 70px;
   margin: 30px;
 `
 
-const Wrapper = styled.div`
+const EmptyWrapper = styled.div`
   position: absolute;
   right: 20%;
   top: 40%;

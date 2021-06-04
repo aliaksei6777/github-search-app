@@ -16,43 +16,44 @@ export const Paginator: React.FC<PropsType> = ({
     const [portionNumber, setPortionNumber] = useState<number>(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
-    const from = currentPage === 1 ? 1 : (currentPage-1)*4+1
-    return <PaginatorBlock>
-        <InfoBlock>
-            <span>{from}-{from+3} of {totalItemsCount} items</span>
-        </InfoBlock>
+    const from = currentPage === 1 ? 1 : (currentPage - 1) * 4 + 1
 
-        <StyledPaginator>
-            {portionNumber > 1 &&
+    return <>
+        <PaginatorBlock>
+            <Info>
+                <span>{from}-{from + 3} of {totalItemsCount} items</span>
+            </Info>
+            <StyledPaginator>
+                {portionNumber > 1 &&
                 <button style={{marginRight: "7px"}} onClick={() => {
                     setPortionNumber(portionNumber - 1)
                 }}>&lt;</button>
-            }
-            {pages
-                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map(p => {
-                    return <StyledPaginatorItem currentPage={currentPage} p={p}
-                                                key={p}
-                                                onClick={() => {
-                                                    onPageChanged(p)
-                                                }}>
-                        {p}
-                    </StyledPaginatorItem>
-                })}
-            {
-                portionCount > portionNumber && <button style={{}} onClick={() => {
-                    setPortionNumber(portionNumber + 1)
-                }}>&gt;</button>
-            }
-        </StyledPaginator>
-    </PaginatorBlock>
-
+                }
+                {pages
+                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                    .map(p => {
+                        return <PaginatorItem currentPage={currentPage} p={p}
+                                                    key={p}
+                                                    onClick={() => {
+                                                        onPageChanged(p)
+                                                    }}>
+                            {p}
+                        </PaginatorItem>
+                    })}
+                {
+                    portionCount > portionNumber && <button style={{}} onClick={() => {
+                        setPortionNumber(portionNumber + 1)
+                    }}>&gt;</button>
+                }
+            </StyledPaginator>
+        </PaginatorBlock>
+    </>
 }
 
 
 //styled-components
 
-const InfoBlock = styled.div`
+const Info = styled.div`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
@@ -68,7 +69,6 @@ const PaginatorBlock = styled.div`
   padding: 20px;
 `
 const StyledPaginator = styled.div`
-  //width: 100%;
   margin: 0px;
   padding: 0px;
   display: flex;
@@ -88,7 +88,7 @@ type StyledProps = {
     p: number
     currentPage: number
 }
-const StyledPaginatorItem = styled.span<StyledProps>`
+const PaginatorItem = styled.span<StyledProps>`
   padding: 2px;
   text-align: center;
   width: 21px;

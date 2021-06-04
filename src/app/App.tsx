@@ -8,10 +8,11 @@ import {useHistory} from 'react-router-dom';
 
 function App() {
     const [value, setValue] = useState("")
-    const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
 
-    const history = useHistory();
+    const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
+    const history = useHistory()
     const dispatch = useDispatch()
+
     const fetchData = () => {
         const trimValue = value.trim()
         if (trimValue) {
