@@ -10,7 +10,7 @@ const initialState = {
     currentPage: 1
 }
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: InitialProfileStateType = initialState, action: ActionsType): InitialProfileStateType => {
     switch (action.type) {
         case "PROFILE/SET_USER_DATA":
             return {...state, user: action.payload.userData}
@@ -28,7 +28,7 @@ export const setUserData = (userData: UserType) =>
 
 export const setRepoData = (repoData: RepoType[]) =>
     ({type: 'PROFILE/SET_REPO_DATA', payload: {repoData}}) as const
-const setCurrentPage = (value: number) => ({type:'PROFILE/SET_CURRENT_PAGE',value} as const)
+export const setCurrentPage = (value: number) => ({type:'PROFILE/SET_CURRENT_PAGE',value} as const)
 
 
 export const getUserDataTC = (userName: string, ) => async (dispatch: ThunkDispatch<RootStateType, unknown, ThunkAction>) => {
@@ -69,7 +69,7 @@ export const getRepoDataTC = (userName: string, pageNumber: number) => async (di
 
 
 //type
-export type InitialStateType = typeof initialState
+export type InitialProfileStateType = typeof initialState
 type ThunkAction = ActionsType | AppActionsType
 type ActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setRepoData> | ReturnType<typeof setCurrentPage>
 export type UserType = {
@@ -82,7 +82,7 @@ export type UserType = {
     public_repos: number
 }
 export type RepoType = {
-    name: '',
+    name: string
     description: string | null
-    html_url: ''
+    html_url: string
 }
