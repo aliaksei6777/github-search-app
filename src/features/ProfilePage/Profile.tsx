@@ -12,7 +12,6 @@ import emptyIcon from "../../assets/image/empty.png"
 export const Profile = () => {
 
     const dispatch = useDispatch()
-
     const {avatar_url, html_url, login, name, followers, following, public_repos}
         = useSelector<RootStateType, UserType>(state => state.profile.user)
     const repo = useSelector<RootStateType, RepoType[]>(state => state.profile.repos)
@@ -20,11 +19,9 @@ export const Profile = () => {
 
     const currentPageData = repo.map((el, i) =>
         <RepoItem key={i + el.name}>
-            <a style={{
-                textDecoration: "none", color: '#0064EB', fontFamily: 'Inter', fontStyle: 'normal',
-                fontWeight: 500, fontSize: '24px', lineHeight: '29px'}}
-               href={el.html_url} target="_blank" rel="noreferrer"><div>{el.name}</div>
-            </a>{el.description}
+            <RepoLink href={el.html_url} target="_blank" rel="noreferrer">
+                <div>{el.name}</div>
+            </RepoLink>{el.description}
         </RepoItem>)
 
     const followersTrim = followers >= 1000 ? (followers / 1000).toFixed(1) + 'k' : followers
@@ -46,12 +43,7 @@ export const Profile = () => {
                                 <h2>{name}</h2>
                             </Name>
                             <LoginName>
-                                <a href={html_url}
-                                   target="_blank"
-                                   style={{textDecoration: "none", color: '#0064EB', fontFamily: 'Inter',
-                                       fontStyle: 'normal', fontWeight: 'normal', fontSize: '18px', lineHeight: '22px'
-                                            }}>{login}
-                                </a>
+                                <LoginNameLink href={html_url} target="_blank">{login}</LoginNameLink>
                             </LoginName>
                             <FollowBlock>
                                 <FollowItem>
@@ -71,10 +63,8 @@ export const Profile = () => {
                             <EmptyIcon image={emptyIcon}></EmptyIcon>
                             <TextBlock>Repository list is empty</TextBlock>
                         </EmptyWrapper>
-                    :
-                        <RepoBlock>
+                    :   <RepoBlock>
                             <div><h3>Repositories ({public_repos})</h3></div>
-
                             {currentPageData}
                             <Paginator totalItemsCount={public_repos} pageSize={4} currentPage={currentPage}
                                        portionSize={5} onPageChanged={onPageChanged}/>
@@ -85,6 +75,7 @@ export const Profile = () => {
 }
 
 //styled-components
+
 const MainBlock = styled.div`
   min-height: 100vh;
   width: 100%
@@ -108,6 +99,7 @@ const InfoBlock = styled.div`
   height: 431.98px;
   margin-left: 25px;
 `
+
 const Avatar = styled.div`
   display: flex;
   justify-content: center;
@@ -138,7 +130,6 @@ const LoginName = styled.div`
   color: #0064EB;
 `
 const FollowBlock = styled.div`
-  //margin: 30px;
   display: flex;
   justify-content: space-between;
   font-family: Inter, serif;
@@ -166,6 +157,26 @@ const FollowIcon = styled.div<IconFStyledProps>`
   width: 20px;
   height: 20px;
 `
+const RepoLink = styled.a`
+  text-decoration: none;
+  color: #0064EB;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+`
+
+const LoginNameLink = styled.a`
+  text-decoration: none;
+  color: #0064EB;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+`
+
 const RepoBlock = styled.div`
   width: 90%;
   min-height: 50vh;

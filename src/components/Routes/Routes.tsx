@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import ErrorPage from "../../features/Error404Page/ErrorPage";
 import {Profile} from "../../features/ProfilePage/Profile";

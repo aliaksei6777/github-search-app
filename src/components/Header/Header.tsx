@@ -1,4 +1,4 @@
-import React from "react"
+import {FC} from "react"
 import {NavLink} from "react-router-dom"
 import styled from "styled-components";
 import gitIcon from "../../assets/image/gitIcon.png"
@@ -14,7 +14,8 @@ type PropsType = {
     inputValue: string
     onChangeInput: (value: any) => void
 }
-export const Header: React.FC<PropsType> = ({callback,onChangeInput,inputValue}) => {
+
+export const Header: FC<PropsType> = ({callback,onChangeInput,inputValue}) => {
     const dispatch = useDispatch()
     const appStatus = useSelector<RootStateType, string>((state) => state.app.status)
 
@@ -39,9 +40,9 @@ export const Header: React.FC<PropsType> = ({callback,onChangeInput,inputValue})
                 </InputStyled>
             </Nav>
         </HeaderContainer>
-        <div style={{height:"6px"}}>
+        <ProgressBarStyled>
             {appStatus === 'loading' ? <ProgressBar/> : null}
-        </div>
+        </ProgressBarStyled>
     </>
 }
 
@@ -112,4 +113,8 @@ const Icon = styled.div<IconStyledProps>`
   top: 16px;
   background-image: url(${props => props.image});
   background-size: auto;
+`
+
+const ProgressBarStyled = styled.div`
+  height: 6px;
 `

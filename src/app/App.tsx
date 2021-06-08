@@ -22,7 +22,7 @@ function App() {
         }
     }
     if (appStatus === 'succeeded') {
-        history.push(PATH.PROFILE);
+        history.push(PATH.PROFILE); 
     }
 
     if (appStatus === 'idle') {
